@@ -66,13 +66,13 @@ class UserController {
       const { username, password } = req.body;
       if (username && password) {
         const data = await userRepository.getUserByUsername(username);
-
         if (data.length === 0) {
           return getErrorObj("Bad Request");
         } else {
           if (bcrypt.compareSync(password, data[0].password)) {
             const token = jwtUtils.generateAccessToken(username);
-            return { token };
+            const { user_id } = data[0];
+            return getResponseObj({ user_id, token });
           }
         }
       } else {

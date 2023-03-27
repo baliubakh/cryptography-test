@@ -47,14 +47,14 @@ export const signUpInputData = {
       name: "username",
     },
     {
-      id: 5,
+      id: 2,
       title: "Password",
       type: "password",
       placeholder: "Enter password",
       name: "password",
     },
     {
-      id: 6,
+      id: 3,
       title: "Retype Password",
       type: "password",
       placeholder: "Re-Enter password",
@@ -62,4 +62,27 @@ export const signUpInputData = {
     },
   ],
   button: "Register",
+};
+
+export const homePageFormData = [
+  {
+    id: 1,
+    title: "Yout Message",
+    type: "text",
+    placeholder: "Some Text",
+    name: "decrypted",
+  },
+];
+
+export const homePageDropdownOptions = ["caesar", "xor"];
+
+export const cipherKeyValuesByCipher = {
+  caesar: {
+    title: "Caesar shift number",
+    type: "number",
+  },
+  xor: {
+    title: "XOR key",
+    type: "text",
+  },
 };

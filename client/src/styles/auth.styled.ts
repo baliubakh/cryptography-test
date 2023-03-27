@@ -6,6 +6,7 @@ import { themes } from "./themes";
 export const InputWrapper = styled.div`
   margin-bottom: 24px;
   position: relative;
+  width: 100%;
 `;
 
 export const InputTitle = styled.h4`
@@ -269,6 +270,7 @@ export const DropdownOption = styled.div`
   position: relative;
   z-index: 3;
   cursor: pointer;
+  text-transform: uppercase;
   transition: background-color 0.3s;
 
   &.smallOptions {
@@ -298,4 +300,10 @@ export const ErrorText = styled.div`
   border-radius: 6px;
   text-align: center;
   font-weight: ${themes.font.weight.semiBold};
+`;
+
+export const NotFoundPageWrapper = styled.div`
+  text-align: center;
+  font-weight: ${themes.font.weight.bold};
+  font-size: 32px;
 `;

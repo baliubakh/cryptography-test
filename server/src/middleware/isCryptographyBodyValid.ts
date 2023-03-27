@@ -12,7 +12,6 @@ export const isCryptographyBodyValid = (
     cipher_key,
     decrypted,
   });
-
   if (error) {
     res.status(400).json({ message: "Bad Request" });
     return;
