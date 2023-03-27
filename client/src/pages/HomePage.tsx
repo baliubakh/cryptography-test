@@ -1,6 +1,7 @@
 import { Formik, FormikHelpers } from "formik";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import EncryptedItem from "../components/EncryptedItem";
 import HomePageForm from "../components/HomePageForm";
 import { get, showCryptography } from "../redux/slices/cryptography-slice";
@@ -12,6 +13,8 @@ import { cipherUtils } from "../utils/cipherUtils";
 import { HomeFormValidatorSchema } from "../validators/HomeValidator";
 
 const HomePage = () => {
+  const navigation = useNavigate();
+
   const dispatch = useDispatch();
   const data = useSelector(showCryptography);
   const [dropVal, setDropVal] = useState<string>("caesar");
@@ -35,6 +38,12 @@ const HomePage = () => {
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  useEffect(() => {
+    const id = localStorage.getItem("USER_ID");
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    if (!(id && token)) navigation("/signin");
+  }, [navigation]);
 
   const handleSubmit = (
     values: ICryptographyFormValues,
@@ -87,15 +96,27 @@ const HomePage = () => {
       >
         <HomePageForm dropVal={dropVal} setDropVal={setDropVal} />
       </Formik>
-      <Styled.EncryptedDataWrapper>
-        {data.map((dataEl) => (
-          <EncryptedItem
-            key={dataEl.cryptography_id}
-            decrypted={dataEl.decrypted}
-            encrypted={dataEl.encrypted}
-          />
-        ))}
-      </Styled.EncryptedDataWrapper>
+      <Styled.TableWrapper>
+        <Styled.Table>
+          <Styled.TableHead>
+            <Styled.TableRow>
+              <Styled.TableHeader>Text</Styled.TableHeader>
+              <Styled.TableHeader>Cipher</Styled.TableHeader>
+              <Styled.TableHeader>Get Original Text</Styled.TableHeader>
+            </Styled.TableRow>
+          </Styled.TableHead>
+          <Styled.TableBody>
+            {data.map((dataEl) => (
+              <EncryptedItem
+                key={dataEl.cryptography_id}
+                cipher={dataEl.cipher}
+                decrypted={dataEl.decrypted}
+                encrypted={dataEl.encrypted}
+              />
+            ))}
+          </Styled.TableBody>
+        </Styled.Table>
+      </Styled.TableWrapper>
     </Styled.HomePageWrapper>
   );
 };
