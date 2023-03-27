@@ -27,25 +27,39 @@ export const ButtonWrapper = styled.div`
   }
 `;
 
-export const EncryptedDataWrapper = styled.section`
+export const Table = styled.table`
   margin-top: 30px;
+  border-collapse: collapse;
+  min-width: 700px;
+  width: 100%;
 `;
 
-export const EncryptedItemWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 0 30px 20px;
-  border-bottom: 3px dashed ${themes.colors.mediumGrey};
+export const TableHead = styled.thead``;
 
-  @media ${themes.media.maxMobile} {
-    flex-direction: column;
-    row-gap: 30px;
+export const TableHeader = styled.th`
+  border: 1px solid ${themes.colors.mediumGrey};
+  padding: 8px;
+`;
+
+export const TableBody = styled.tbody`
+  & tr:nth-of-type(odd) {
+    background-color: ${themes.colors.lightGrey};
   }
 `;
 
-export const EncryptedText = styled.p`
-  margin: 0;
+export const TableRow = styled.tr`
+  margin-bottom: 20px;
+  padding: 0 30px 20px;
+  border-bottom: 3px dashed ${themes.colors.mediumGrey};
 `;
-export const DecryptButtonWrapper = styled.div``;
+
+export const TableData = styled.td`
+  font-size: 24px;
+  border: 1px solid ${themes.colors.mediumGrey};
+  padding: 8px;
+  text-align: center;
+`;
+
+export const TableWrapper = styled.div`
+  overflow-x: auto;
+`;

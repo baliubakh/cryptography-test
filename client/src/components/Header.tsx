@@ -1,17 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import * as Styled from "../styles/header.styled";
-import { showUser } from "../redux/slices/user-slice";
 
 const Header = () => {
-  const userData = useSelector(showUser);
+  const navigate = useNavigate();
   const [isLogined, setIsLogined] = useState(
     !!localStorage.getItem("ACCESS_TOKEN")
   );
 
   const handleLogoutClick = () => {
     localStorage.removeItem("ACCESS_TOKEN");
+    navigate("/signin");
     setIsLogined(false);
   };
 

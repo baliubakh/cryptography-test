@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import {
-  DecryptButtonWrapper,
-  EncryptedItemWrapper,
-  EncryptedText,
-} from "../styles/home.styled";
+import { TableData, TableRow } from "../styles/home.styled";
 import AuthButton from "./AuthButton";
 
 interface IEncryptedDataBlock {
+  cipher: string;
   encrypted: string;
   decrypted: string;
 }
 
-const EncryptedItem = ({ encrypted, decrypted }: IEncryptedDataBlock) => {
+const EncryptedItem = ({
+  cipher,
+  encrypted,
+  decrypted,
+}: IEncryptedDataBlock) => {
   const [decryptedIsShowed, setDecryptedIsShowed] = useState<boolean>(false);
 
   const showDecrypted = () => {
@@ -19,16 +20,17 @@ const EncryptedItem = ({ encrypted, decrypted }: IEncryptedDataBlock) => {
   };
 
   return (
-    <EncryptedItemWrapper>
-      <EncryptedText>{decryptedIsShowed ? decrypted : encrypted}</EncryptedText>
-      <DecryptButtonWrapper>
+    <TableRow>
+      <TableData>{decryptedIsShowed ? decrypted : encrypted}</TableData>
+      <TableData>{cipher.toUpperCase()}</TableData>
+      <TableData>
         <AuthButton
           handleClick={showDecrypted}
           type="button"
           title="Show Decrypted text!"
         />
-      </DecryptButtonWrapper>
-    </EncryptedItemWrapper>
+      </TableData>
+    </TableRow>
   );
 };
 
