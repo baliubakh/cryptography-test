@@ -1,5 +1,5 @@
 import { Formik, Form, FormikHelpers } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AuthButton from "../components/AuthButton";
@@ -12,6 +12,7 @@ import {
   AuthBackgroundWrapper,
   AuthSubtitle,
   AuthTitle,
+  ErrorText,
   HelperTextLink,
   HelpText,
   SignInWrapper,
@@ -21,6 +22,7 @@ import { SigninSchema } from "../validators/SignInValidator";
 import { get } from "../redux/slices/user-slice";
 
 const SignInPage = () => {
+  const [error, setError] = useState<string>("");
   const dispatch = useDispatch();
   const navigation = useNavigate();
   const handleSubmit = (
@@ -28,16 +30,24 @@ const SignInPage = () => {
     { resetForm }: FormikHelpers<IAuthData>
   ) => {
     authService.signin(values).then((res) => {
-      if (res) {
-        localStorage.setItem("ACCESS_TOKEN", res.token);
+      if (
+        res &&
+        res.status === "success" &&
+        res.data.token &&
+        res.data.user_id
+      ) {
+        localStorage.setItem("ACCESS_TOKEN", res.data.token);
+        localStorage.setItem("USER_ID", res.data.user_id + "");
 
         const { username } = values;
         const userStoreData = { username };
         dispatch(get(userStoreData));
+        resetForm();
         navigation("/");
+      } else {
+        setError("Wrong username or password");
       }
     });
-    resetForm();
   };
 
   return (
@@ -64,6 +74,8 @@ const SignInPage = () => {
                 />
               ))}
               <AuthButton type="submit" title="Login" />
+
+              {error && <ErrorText>{error}</ErrorText>}
               <HelpText>
                 Don’t have an Account?{" "}
                 <HelperTextLink to="/signup">Register</HelperTextLink>

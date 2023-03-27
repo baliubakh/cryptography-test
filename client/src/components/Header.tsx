@@ -10,8 +10,6 @@ const Header = () => {
     !!localStorage.getItem("ACCESS_TOKEN")
   );
 
-  console.log(userData);
-
   const handleLogoutClick = () => {
     localStorage.removeItem("ACCESS_TOKEN");
     setIsLogined(false);

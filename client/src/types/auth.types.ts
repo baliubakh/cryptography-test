@@ -10,7 +10,11 @@ export interface ISignUpData {
 }
 
 export interface ISignInResponse {
-  token: string;
+  status: "success" | "fail";
+  data: {
+    token: string;
+    user_id: number;
+  };
 }
 
 export interface ISignUpResponse {

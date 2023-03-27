@@ -2,7 +2,7 @@ import { useFormikContext } from "formik";
 import React, { useState, useMemo } from "react";
 import * as Styled from "../styles/auth.styled";
 
-interface IAuthDropdown {
+interface IDropdown {
   setCurrHeader: React.Dispatch<React.SetStateAction<string>>;
   currHeader: string;
   name: string;
@@ -12,7 +12,7 @@ interface IAuthDropdown {
   error?: string;
 }
 
-const AuthDropdown = ({
+const Dropdown = ({
   setCurrHeader,
   currHeader,
   name,
@@ -20,7 +20,7 @@ const AuthDropdown = ({
   title,
   options,
   error,
-}: IAuthDropdown) => {
+}: IDropdown) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const { setFieldValue } = useFormikContext();
 
@@ -51,7 +51,7 @@ const AuthDropdown = ({
         onClick={handlePreviewClick}
         className={headerClassName}
       >
-        {preview}
+        {preview.toUpperCase()}
         <Styled.DropdownArrow className={openClassName}>
           <span />
           <span />
@@ -69,4 +69,4 @@ const AuthDropdown = ({
   );
 };
 
-export default AuthDropdown;
+export default Dropdown;

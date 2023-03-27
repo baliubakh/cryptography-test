@@ -1,13 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { ICryptography } from "../../types/cryptographyTypes";
+import { ICryptography } from "../../types/cryptography.types";
 
 const initialState: ICryptography[] = [
   {
     user_id: 0,
-    cipher: "",
+    cryptography_id: 0,
+    cipher: "caesar",
     cipher_key: "",
     decrypted: "",
+    encrypted: "",
   },
 ];
 
@@ -34,6 +36,6 @@ export const cryptographySlice = createSlice({
 });
 
 export const { get, edit, removeById } = cryptographySlice.actions;
-export const showProjects = (state: { cryptography: ICryptography[] }) =>
+export const showCryptography = (state: { cryptography: ICryptography[] }) =>
   state.cryptography;
 export default cryptographySlice.reducer;
